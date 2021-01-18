@@ -84,68 +84,32 @@ void setIO(string name = "") {
 void solve(){
 	
 	int n;
+	
+	cin >> n;
+	
+	string a, b;
+	
+	cin >> a >> b;		
 
-	string s;
-	
-	cin >> n >> s;
-	
-	int res = 2;
-	
+	int res = 0, count = 0;
+
 	for(int i = 0; i < n; i++){
-	
-		int a = i, b = i + 1, count = 0;	
-				
-		vector<bool> v(n, 0);
-		
-		if(s[a % n] == 'w'){
-			int tb = b, vuelta = 0;
-			while(s[tb % n] == 'w' && vuelta < n){
-				tb++;
-				vuelta++;
-			}
-			if(vuelta == n - 1){
-				cout << n << "\n";
-				return;
-			}
-			s[a % n] = s[tb % n];
-			
+		if(a[i] == b[i]){
+			if(count > 0) res++;
+			count = 0;
+			continue;
 		}
-		
-		while((s[a % n] == s[b % n] || s[a % n] == 'w') && !v[a % n]){
-			v[a % n] = 1;
-			a--;
-			if(a < 0) a = n - 1;
-			count++;
-		}
-
-		char ca = s[a % n];
-
-		while((s[a % n] == ca || s[a % n] == 'w') && !v[a % n]){
-			v[a % n] = 1;
-			a--;
-			if(a < 0) a = n - 1;
-			count++;
-		}
-		
-		char cb = s[b % n];
-		
-		while((s[b % n] == cb || s[b % n] == 'w') && !v[b % n]){
-			v[b % n] = 1;
-			b++;
-			count++;
-		}
-		
-		res = max(res, count);
-		
+		count++;
 	}
 	
-	cout << res << "\n";
+	if(count > 0) res++;
 	
-			
+	cout << res << "\n";
+
 }
 
 int main(){
-	setIO("beads");
+	setIO("breedflip");
 
 	int t = 1;	
 

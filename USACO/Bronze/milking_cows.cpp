@@ -1,3 +1,8 @@
+/*
+ID: Joshi503
+TASK: milk2
+LANG: C++                 
+*/
 #include<bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
 #include <ext/pb_ds/tree_policy.hpp>
@@ -84,68 +89,48 @@ void setIO(string name = "") {
 void solve(){
 	
 	int n;
-
-	string s;
 	
-	cin >> n >> s;
+	cin >> n;
 	
-	int res = 2;
+	vector<bool> v(1e6+10, 0);
+	
+	int inicio = 1e9, final = -1;
 	
 	for(int i = 0; i < n; i++){
-	
-		int a = i, b = i + 1, count = 0;	
-				
-		vector<bool> v(n, 0);
-		
-		if(s[a % n] == 'w'){
-			int tb = b, vuelta = 0;
-			while(s[tb % n] == 'w' && vuelta < n){
-				tb++;
-				vuelta++;
-			}
-			if(vuelta == n - 1){
-				cout << n << "\n";
-				return;
-			}
-			s[a % n] = s[tb % n];
-			
+		int l, r;
+		cin >> l >> r;
+		r--;
+		inicio = min(inicio, l), final = max(final, r);
+		for(int j = l; j <= r; j++){
+			v[j] = 1;
 		}
-		
-		while((s[a % n] == s[b % n] || s[a % n] == 'w') && !v[a % n]){
-			v[a % n] = 1;
-			a--;
-			if(a < 0) a = n - 1;
-			count++;
-		}
-
-		char ca = s[a % n];
-
-		while((s[a % n] == ca || s[a % n] == 'w') && !v[a % n]){
-			v[a % n] = 1;
-			a--;
-			if(a < 0) a = n - 1;
-			count++;
-		}
-		
-		char cb = s[b % n];
-		
-		while((s[b % n] == cb || s[b % n] == 'w') && !v[b % n]){
-			v[b % n] = 1;
-			b++;
-			count++;
-		}
-		
-		res = max(res, count);
-		
 	}
 	
-	cout << res << "\n";
+	int maxi = 0, mini = 0, count = 0, count1 = 0;
 	
-			
+	for(int i = inicio; i <= final; i++){
+		if(v[i]){
+			count++;
+			mini = max(mini, count1);
+			count1 = 0;
+		}
+		else{
+			count1++;
+			maxi = max(maxi, count);
+			count = 0;
+		}
+	}
+	
+	mini = max(mini, count1);
+	maxi = max(maxi, count);
+	
+	cout << maxi  << " " << mini << "\n";
+	
 }
 
 int main(){
-	setIO("beads");
+
+	setIO("milk2");
 
 	int t = 1;	
 
