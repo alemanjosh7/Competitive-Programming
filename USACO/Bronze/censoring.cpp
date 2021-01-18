@@ -4,7 +4,7 @@
 
 using namespace __gnu_pbds;
 using namespace std;
- 
+
 typedef long long ll;
 typedef uint64_t u64;
 typedef vector<ll> vl;
@@ -15,7 +15,7 @@ typedef pair<int,int> ii;
 typedef pair<ll,ll> pll;
 typedef vector<ii> vpi;
 typedef vector<vpi> wgraf;
- 
+
 #define F first 
 #define S second 
 #define PB push_back 
@@ -50,24 +50,24 @@ void _read(char *x){ scanf("%s", x); }
 void _read(char &x){ scanf(" %c", &x); }
 void _read(double& x){ scanf("%lf", &x); } 
 void _read(string& x){ cin >> x; }         
- 
+
 template <typename T, typename U>
 void _read(pair<T,U>& p){
 	_read(p.fst); _read(p.snd);
 }
- 
+
 template <typename T>
 void _read(VT<T> &V){
 	for(int i = 0; i < sz(V); i++) _read(V[i]);
 }
- 
+
 void read() {}
 template <typename T, typename... U>
 void read(T &head, U &... tail){
 	_read(head);
 	read(tail...);
 }
- 
+
 template <typename T>
 void reada(T *arr, int n){
 	for(int i = 0; i < n; i++) _read(arr[i]);
@@ -82,70 +82,29 @@ void setIO(string name = "") {
 }
 
 void solve(){
-	
-	int n;
 
-	string s;
-	
-	cin >> n >> s;
-	
-	int res = 2;
-	
-	for(int i = 0; i < n; i++){
-	
-		int a = i, b = i + 1, count = 0;	
-				
-		vector<bool> v(n, 0);
-		
-		if(s[a % n] == 'w'){
-			int tb = b, vuelta = 0;
-			while(s[tb % n] == 'w' && vuelta < n){
-				tb++;
-				vuelta++;
-			}
-			if(vuelta == n - 1){
-				cout << n << "\n";
-				return;
-			}
-			s[a % n] = s[tb % n];
-			
-		}
-		
-		while((s[a % n] == s[b % n] || s[a % n] == 'w') && !v[a % n]){
-			v[a % n] = 1;
-			a--;
-			if(a < 0) a = n - 1;
-			count++;
-		}
+	string s, t;
 
-		char ca = s[a % n];
+	cin >> s >> t;
 
-		while((s[a % n] == ca || s[a % n] == 'w') && !v[a % n]){
-			v[a % n] = 1;
-			a--;
-			if(a < 0) a = n - 1;
-			count++;
+	string r = "";
+
+	for(int i = 0; i < sz(s); i++){
+		r += s[i];
+//		if(sz(r) >= sz(t)){
+//			cout << r.substr(sz(r) - sz(t)) << "\n";
+//		}
+		if(sz(r) >= sz(t) && r.substr(sz(r) - sz(t)) == t){
+			r.resize(sz(r) - sz(t));
 		}
-		
-		char cb = s[b % n];
-		
-		while((s[b % n] == cb || s[b % n] == 'w') && !v[b % n]){
-			v[b % n] = 1;
-			b++;
-			count++;
-		}
-		
-		res = max(res, count);
-		
 	}
-	
-	cout << res << "\n";
-	
-			
+
+	cout << r << "\n";
+
 }
 
 int main(){
-	setIO("beads");
+	setIO("censor");
 
 	int t = 1;	
 
@@ -153,6 +112,6 @@ int main(){
 
 	while(t--)
 		solve();
-		
+
 	return 0;
 }
