@@ -1,3 +1,8 @@
+/*
+ID: Joshi503
+TASK: namenum
+LANG: C++                 
+*/
 #include<bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
 #include <ext/pb_ds/tree_policy.hpp>
@@ -87,46 +92,28 @@ void solve(){
 	
 	cin >> n;
 	
-	vector<pair<int, int>> t(n);
-	
-	vi amount(1005, 0);
+	vi a(n), b(n);
 	
 	for(int i = 0; i < n; i++){
-		int x, y;
-		cin >> x >> y;
-		t[i] = {x, y};
-		for(int j = x; j < y; j++){
-			amount[j]++;
-		}		
+		cin >> a[i];
+		b[i] = a[i];
 	}
 	
-	int res = 0;
+	sort(all(b));
 	
-	for(int i = 1; i < 1000; i++){
-		if(amount[i]) res++;
-	}
-	
-	int ans = 0;
+	int swaps = -1;
 	
 	for(int i = 0; i < n; i++){
-		vi temp(1005, 0);
-		temp = amount;
-		int taken = 0;
-		for(int j = t[i].F; j < t[i].S; j++){
-			temp[j]--;
-		}
-		for(int j = 1; j < 1000; j++){
-			if(temp[j]) taken++;
-		}
-		ans = max(taken, ans);
-	}	
+		if(b[i] != a[i]) swaps++;
+	}
 	
-	cout << ans << "\n";
+	cout << max(swaps, 0) << "\n";
 	
 }
 
 int main(){
-	setIO("lifeguards");
+	
+	setIO("outofplace");
 
 	int t = 1;	
 
