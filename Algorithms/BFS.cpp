@@ -5,12 +5,22 @@ using namespace std;
 vector<vector<int>> adj;
 vector<bool> visited;
 
-void dfs(int node){
+void bfs(int node){
+	queue<int> q;
+
 	visited[node] = true;
-	for(int u : adj[node]){
-		if(!visited[u]){
-			dfs(u);
-			cout << node << " apunta a: " << u << "\n";
+
+	q.push(node);
+	
+	while(!q.empty()){
+		int node = q.front(); q.pop();
+		cout << "Checking adjacent vertices for vertex: " << node << "\n";
+		for(auto v : adj[node]){
+			if(!visited[v]){
+				cout << "Visit and enqueue " << v << "\n";
+				visited[v] = 1;
+				q.push(v);
+			}
 		}
 	}
 }
@@ -31,15 +41,11 @@ int main(){
 		adj[v].push_back(u);
 	}
 	
-	int componentes = 0;
-	
 	for(int i = 1; i <= n; i++){
 		if(!visited[i]){
-			componentes++;
-			dfs(i);
+			bfs(i);
 		}
 	}
-	
-	cout << "componentes: " << componentes << "\n";
+
 	return 0;
 }
