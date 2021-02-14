@@ -45,22 +45,55 @@ void setIO(string name = "") {
 
 void solve() {
 
+	ll A, B;
 	int n;
 
-	cin >> n;
+	cin >> A >> B >> n;
 
-	vi a(n);
+	ll attack = 0, health = 0;
+
+	vector<pair<ll, ll>> mon(n);
 
 	for (int i = 0; i < n; i++) {
-		cin >> a[i];
+		ll in;
+		cin >> in;
+		mon[i].first = in;
 	}
 
-	int m;
-	cin >> m;
+	for (int i = 0; i < n; i++) {
+		ll in;
+		cin >> in;
+		mon[i].second = in;
+	}
 
-	vi q(m);
+	sort(all(mon));
 
-	for (int i = 0; i < m; i++) cin >> q[i];
+	for (int i = 0; i < n; i++) {
+		ll times = (mon[i].second + A - 1) / A; //ataques
+		if (i < n - 1) {
+			attack += (times * mon[i].first);
+		}
+		else {
+			ll temp = ((times - 1) * mon[i].first);
+			attack += temp;
+			mon[i].second -= ((times - 1) * A);
+			// cout << mon[i].second << "\n";
+			if (mon[i].second <= A && attack < B) {
+				cout << "YES\n";
+				return;
+			}
+		}
+
+	}
+
+	attack += mon[n - 1].first;
+
+
+	if (attack <= B) {
+		cout << "YES\n";
+	}
+	else cout << "NO\n";
+
 
 
 
@@ -71,10 +104,11 @@ int main() {
 
 	int t = 1;
 
-	//	cin >> t;
+	cin >> t;
 
 	while (t--)
 		solve();
 
 	return 0;
 }
+

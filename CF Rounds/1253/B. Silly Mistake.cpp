@@ -51,18 +51,25 @@ void solve() {
 
 	vi a(n);
 
-	for (int i = 0; i < n; i++) {
-		cin >> a[i];
+	for(int i = 0; i < n; i++) cin >> a[i];
+
+	map<int, int> m;
+	map<int, int> m1;
+
+	for(int i = 0; i < n; i++){
+		if(a[i] < 0){
+			if(m[-a[i]]){
+				m[-a[i]] = 0;
+			}
+			else{
+				cout << "-1\n";
+				return;
+			}
+		}
+		else{
+				
+		}
 	}
-
-	int m;
-	cin >> m;
-
-	vi q(m);
-
-	for (int i = 0; i < m; i++) cin >> q[i];
-
-
 
 }
 
@@ -71,10 +78,11 @@ int main() {
 
 	int t = 1;
 
-	//	cin >> t;
+//	cin >> t;
 
 	while (t--)
 		solve();
 
 	return 0;
 }
+

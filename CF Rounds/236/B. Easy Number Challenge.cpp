@@ -19,7 +19,7 @@ typedef vector<vpi> wgraf;
 #define POPB pop_back
 #define MP make_pair
 #define boost ios::sync_with_stdio(0); cin.tie(0); cout.tie(0)
-#define MOD 1000000007
+// #define MOD 1000000007
 #define INFL 1000000000000000000
 #define INFI 1000000000
 #define pqb priority_queue<int>
@@ -43,26 +43,48 @@ void setIO(string name = "") {
 	}
 }
 
-void solve() {
+const ll MOD = 1073741824;
 
-	int n;
+ll dp[1000005];
 
-	cin >> n;
+ll d(ll n){
 
-	vi a(n);
+	if(dp[n]) return dp[n];
 
-	for (int i = 0; i < n; i++) {
-		cin >> a[i];
+	ll count = 0;
+
+	for(int i = 1; i * i <= n; i++){
+		if(n % i == 0){
+			if(n / i == i) count++;
+			else count += 2;
+		}
 	}
 
-	int m;
-	cin >> m;
+	dp[n] = count;
+	return dp[n];
 
-	vi q(m);
+}
 
-	for (int i = 0; i < m; i++) cin >> q[i];
+void solve() {
 
+	ll a, b, c;
 
+	cin >> a >> b >> c;
+
+	ll ans = 0;
+
+	msz(dp);
+
+	for (int i = 1; i <= a; i++) {
+		for (int i1 = 1; i1 <= b; i1++) {
+			for (int i2 = 1; i2 <= c; i2++) {
+				ans += d(i * i1 * i2) % MOD;
+				ans %= MOD;
+			}
+		}
+	}
+
+	cout << ans << "\n";
 
 }
 

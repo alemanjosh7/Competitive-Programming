@@ -49,20 +49,48 @@ void solve() {
 
 	cin >> n;
 
-	vi a(n);
+	vi a(n), b(n), c(n);
+
+	map<int, int> mf, ms, mt;
 
 	for (int i = 0; i < n; i++) {
 		cin >> a[i];
+		mf[a[i]]++;
+		ms[a[i]] = 0;
+		mt[a[i]] = 0;
+	}
+	for (int i = 0; i < n - 1; i++) {
+		cin >> b[i];
+		ms[b[i]]++;
+	}
+	for (int i = 0; i < n - 2; i++) {
+		cin >> c[i];
+		mt[c[i]]++;
 	}
 
-	int m;
-	cin >> m;
+	int f = 0, s = 0;
 
-	vi q(m);
+	for(int i = 0; i < n; i++){
+		if(mf[a[i]] != ms[a[i]]){
+			if(!f){
+				f = a[i];
+			}
+		}
+	}
 
-	for (int i = 0; i < m; i++) cin >> q[i];
+	for(int i = 0; i < n; i++){
+		if(mf[a[i]] == mt[a[i]] + 2){
+			s = a[i];
+			break;
+		}
+		else if(mf[a[i]] != mt[a[i]] && f != a[i]){
+			s = a[i];
+			break;
+		}
+	}
 
 
+	cout << f << "\n" << s << "\n";
 
 }
 

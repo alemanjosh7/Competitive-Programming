@@ -43,26 +43,65 @@ void setIO(string name = "") {
 	}
 }
 
+vi f(int x) {
+	vi a;
+	for (int i = 2; i * i <= x; i++) {
+		while (x % i == 0) {
+			x /= i;
+			a.PB(x);
+		}
+	}
+	if (x > 1) a.PB(x);
+	return a;
+}
+
 void solve() {
 
-	int n;
+	int n; cin >> n;
 
-	cin >> n;
+	n <<= 1;
 
 	vi a(n);
 
+	for (int i = 0; i < n; i++) cin >> a[i];
+
+	map<int, int> m;
+
 	for (int i = 0; i < n; i++) {
-		cin >> a[i];
+		for (int j = 0; j < n; j++) {
+			if (i == j) continue;
+			int g = __gcd(a[i], a[j]);
+			if (g > 1) {
+				m[g]++;
+			}
+		}
 	}
 
-	int m;
-	cin >> m;
+	int maxi = -1, num;
 
-	vi q(m);
+	for (auto x : m) {
+		if (x.S > maxi) {
+			maxi = x.S;
+			num = x.F;
+		}
+	}
+	vector<bool> taken(n + 10, 0);
+	int count = 0;
 
-	for (int i = 0; i < m; i++) cin >> q[i];
+	cout << maxi << " " << num << "\n";
 
-
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < n; j++) {
+			if (i == j) continue;
+			if (!taken[i] && !taken[j] && __gcd(num, a[i] + a[j]) > 1) {
+				taken[i] = 1;
+				taken[j] = 1;
+				cout << i + 1 << " " << j + 1 << "\n";
+				count++;
+				if (count == n / 2 - 1) return;
+			}
+		}
+	}
 
 }
 
@@ -71,10 +110,11 @@ int main() {
 
 	int t = 1;
 
-	//	cin >> t;
+	cin >> t;
 
 	while (t--)
 		solve();
 
 	return 0;
 }
+

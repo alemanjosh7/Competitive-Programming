@@ -43,26 +43,39 @@ void setIO(string name = "") {
 	}
 }
 
+int query(int index){
+	int val;
+	cout << "? " << index << endl;
+	cin >> val;
+	return val;
+}
+
 void solve() {
 
 	int n;
 
 	cin >> n;
 
-	vi a(n);
+	vi a(n + 2);
+	a[0] = INFI;
+	a[n + 1] = INFI;
 
-	for (int i = 0; i < n; i++) {
-		cin >> a[i];
+	if(n == 1){
+		cout << 1 << endl;
 	}
 
-	int m;
-	cin >> m;
+	int l = INFI;
+	int index = query(1);
 
-	vi q(m);
-
-	for (int i = 0; i < m; i++) cin >> q[i];
-
-
+	for(int i = 2; i <= min(n, 100); i++){
+		int r = query(i);
+		if(min(l, r) > index){
+			cout << "! " << i - 1 << endl;
+			return;
+		}
+		l = index;
+		index = r;
+	}	
 
 }
 
@@ -71,10 +84,11 @@ int main() {
 
 	int t = 1;
 
-	//	cin >> t;
+//	cin >> t;
 
 	while (t--)
 		solve();
 
 	return 0;
 }
+

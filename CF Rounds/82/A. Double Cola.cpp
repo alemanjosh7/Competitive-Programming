@@ -49,20 +49,27 @@ void solve() {
 
 	cin >> n;
 
-	vi a(n);
+	vector<string> names = {"Sheldon", "Leonard", "Penny", "Rajesh", "Howard"};
 
-	for (int i = 0; i < n; i++) {
-		cin >> a[i];
+	ll count = 0, pot = 1, tot = 0, times = 0;
+
+	int ind = 0;
+
+	while(tot < n){
+
+		tot += pow(2, times);
+		if(tot >= n){
+			break;
+		}
+		ind++;
+		count++;
+		if(ind == 5) ind = 0;
+		if(count % 5 == 0){
+			times++;
+		}
 	}
 
-	int m;
-	cin >> m;
-
-	vi q(m);
-
-	for (int i = 0; i < m; i++) cin >> q[i];
-
-
+	cout << names[ind] << "\n";
 
 }
 
@@ -78,3 +85,4 @@ int main() {
 
 	return 0;
 }
+

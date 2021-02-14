@@ -45,24 +45,28 @@ void setIO(string name = "") {
 
 void solve() {
 
-	int n;
+	int n, x;
+	cin >> n >> x;
 
-	cin >> n;
-
-	vi a(n);
+	vl a(n);
 
 	for (int i = 0; i < n; i++) {
 		cin >> a[i];
 	}
 
-	int m;
-	cin >> m;
+	sort(rall(a));
 
-	vi q(m);
+	int ans = 0;
+	ll s = 0;
 
-	for (int i = 0; i < m; i++) cin >> q[i];
+	for (int i = 0; i < n; i++) {
+		s += a[i];
+		if (s / (i + 1) >= x) {
+			ans = i + 1;
+		}
+	}
 
-
+	cout << ans << "\n";
 
 }
 
@@ -71,10 +75,11 @@ int main() {
 
 	int t = 1;
 
-	//	cin >> t;
+	cin >> t;
 
 	while (t--)
 		solve();
 
 	return 0;
 }
+

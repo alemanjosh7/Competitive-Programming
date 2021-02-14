@@ -45,25 +45,17 @@ void setIO(string name = "") {
 
 void solve() {
 
-	int n;
+	int c, sum = 0;
 
-	cin >> n;
-
-	vi a(n);
-
-	for (int i = 0; i < n; i++) {
-		cin >> a[i];
+	for (int i = 0; i < 5; i++) {
+		cin >> c;
+		sum += c;
 	}
 
-	int m;
-	cin >> m;
-
-	vi q(m);
-
-	for (int i = 0; i < m; i++) cin >> q[i];
-
-
-
+	if (sum % 5 == 0 && sum) {
+		cout << sum / 5 << "\n";
+	}
+	else cout << -1 << "\n";
 }
 
 int main() {
@@ -78,3 +70,4 @@ int main() {
 
 	return 0;
 }
+

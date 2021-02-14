@@ -45,22 +45,57 @@ void setIO(string name = "") {
 
 void solve() {
 
-	int n;
+	int n, m, k;
 
-	cin >> n;
+	cin >> n >> m >> k;
 
-	vi a(n);
+	vi x(m);
 
-	for (int i = 0; i < n; i++) {
-		cin >> a[i];
+	for (int i = 0; i < m; i++) {
+		cin >> x[i];
 	}
 
-	int m;
-	cin >> m;
+	int f; cin >> f;
 
-	vi q(m);
+	int tf = f;
 
-	for (int i = 0; i < m; i++) cin >> q[i];
+	string a = "";
+
+	while (tf) {
+		a += char((tf & 1) + 48);
+		if (tf > 1) tf /= 2;
+		else tf--;
+	}
+
+	string c(25, '0');
+
+	for (int i = sz(a) - 1; i >= 0; i--) {
+		c[i] = a[i];
+	}
+
+	int ans = 0;
+
+	for (int i = 0; i < m; i++) {
+		int res = 0, res1 = 0;
+		tf = x[i];
+		string d(25, '0'), b = "";
+		while (tf) {
+			b += char((tf & 1) + 48);
+			if (tf > 1) tf /= 2;
+			else tf--;
+		}
+		for (int j = sz(b) - 1; j >= 0; j--) {
+			d[j] = b[j];
+		}
+
+		for (int j = 0; j < 25; j++) {
+			if (c[j] != d[j] && (d[j] == '1' || c[j] == '1')) res++;
+		}
+		if (res <= k) ans++;
+	}
+
+	cout << ans << "\n";
+
 
 
 
@@ -78,3 +113,4 @@ int main() {
 
 	return 0;
 }
+

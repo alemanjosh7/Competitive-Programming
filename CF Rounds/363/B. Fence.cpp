@@ -45,24 +45,33 @@ void setIO(string name = "") {
 
 void solve() {
 
-	int n;
+	int n, k;
 
-	cin >> n;
+	cin >> n >> k;
 
-	vi a(n);
+	vi h(n);
 
 	for (int i = 0; i < n; i++) {
-		cin >> a[i];
+		cin >> h[i];
 	}
 
-	int m;
-	cin >> m;
+	vi ps(n + 1, 0);
 
-	vi q(m);
+	for (int i = 0; i < n; i++) {
+		ps[i + 1] = ps[i] + h[i];
+	}
 
-	for (int i = 0; i < m; i++) cin >> q[i];
+	int ind = 0, res = n - k, ans = INFI;
 
+	for (int i = k - 1; i < n; i++) {
+		if (ans > ps[i + 1] - ps[ind]) {
+			res = i - k + 2;
+			ans = ps[i + 1] - ps[ind];
+		}
+		ind++;
+	}
 
+	cout << res << "\n";
 
 }
 
@@ -78,3 +87,4 @@ int main() {
 
 	return 0;
 }
+

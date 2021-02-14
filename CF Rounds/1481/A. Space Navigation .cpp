@@ -45,24 +45,47 @@ void setIO(string name = "") {
 
 void solve() {
 
-	int n;
+	int px, py;
+	cin >> px >> py;
 
-	cin >> n;
+	string s;
 
-	vi a(n);
+	cin >> s;
 
-	for (int i = 0; i < n; i++) {
-		cin >> a[i];
+	map<char, int> m;
+	m['L'] = 0;
+	m['U'] = 0;
+	m['D'] = 0;
+	m['R'] = 0;
+
+	if (px < 0) {
+		m['L'] = abs(px);
+	}
+	else {
+		m['R'] = px;
+	}
+	if (py < 0) {
+		m['D'] = abs(py);
+	}
+	else {
+		m['U'] = py;
 	}
 
-	int m;
-	cin >> m;
+	map<char, int> m1;
 
-	vi q(m);
+	for (int i = 0; i < sz(s); i++) {
+		m1[s[i]]++;
+	}
 
-	for (int i = 0; i < m; i++) cin >> q[i];
+	bool can = 1;
 
-
+	for (auto x : m) {
+		if (x.S > m1[x.F]) {
+			can = 0;
+		}
+	}
+	if (can) cout << "YES\n";
+	else cout << "NO\n";
 
 }
 
@@ -71,10 +94,11 @@ int main() {
 
 	int t = 1;
 
-	//	cin >> t;
+	cin >> t;
 
 	while (t--)
 		solve();
 
 	return 0;
 }
+

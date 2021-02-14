@@ -55,14 +55,19 @@ void solve() {
 		cin >> a[i];
 	}
 
-	int m;
-	cin >> m;
+	sort(all(a));
 
-	vi q(m);
+	swap(a[n - 1], a[n - 2]);
 
-	for (int i = 0; i < m; i++) cin >> q[i];
-
-
+	for(int i = 1; i < n + 1; i++){
+		// cout << (i - 1) % n << " " << i % n << " " << (i + 1) % n << "\n";
+		if(a[(i - 1) % n] + a[(i + 1) % n] <= a[i % n]){
+			cout << "NO\n";
+			return;
+		}
+	}
+	cout << "YES\n";
+	for(int i = 0; i < n; i++) cout << a[i] << " ";
 
 }
 
@@ -78,3 +83,4 @@ int main() {
 
 	return 0;
 }
+

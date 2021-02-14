@@ -49,20 +49,39 @@ void solve() {
 
 	cin >> n;
 
-	vi a(n);
+	vi b(n);
 
-	for (int i = 0; i < n; i++) {
-		cin >> a[i];
+	vector<bool> taken(2 * n + 1, 0);
+
+	for(int i = 0; i < n; i++){
+		cin >> b[i];
+		taken[b[i]] = 1;
 	}
 
-	int m;
-	cin >> m;
+	vi a;
 
-	vi q(m);
+	for(int i = 0; i < n; i++){
+		a.PB(b[i]);
+		bool can = 0;
+		for(int j = b[i] + 1; j <= 2 * n; j++){
+			if(!taken[j]){
+				a.PB(j);
+				taken[j] = 1;
+				can = 1;
+				break;
+			}
+		}
+		if(!can){
+			cout << "-1\n";
+			return;
+		}
+	}
 
-	for (int i = 0; i < m; i++) cin >> q[i];
+	for(int i = 0; i < 2 * n; i++){
+		cout << a[i] << " ";
+	}
 
-
+	cout << "\n";
 
 }
 
@@ -71,10 +90,11 @@ int main() {
 
 	int t = 1;
 
-	//	cin >> t;
+	cin >> t;
 
 	while (t--)
 		solve();
 
 	return 0;
 }
+
